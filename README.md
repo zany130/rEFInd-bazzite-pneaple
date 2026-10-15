@@ -1,6 +1,6 @@
 # rEFInd Bazzite Pneaple
 
-A 4K neon-gaming-room rEFInd theme, combining **Pneaple-inspired translucent black header/menu/footer bands** with soft blue–violet highlights and custom OS/tool icons. Built around the Bazzite gaming experience and rEFInd 0.14.x.
+A 4K neon-gaming-room rEFInd theme, combining **Pneaple-inspired translucent black header/menu/footer bands** with MIT-licensed refindTTT transparency icons and matching blue selection backgrounds. Built around the Bazzite gaming experience and rEFInd 0.14.x.
 
 > **Status:** First installation candidate. Image dimensions and transparency are verified, but its on-screen position and behavior have **not yet been tested on physical UEFI firmware**. The example preview is a **concept illustration**, not an actual rEFInd capture.
 
@@ -9,11 +9,25 @@ A 4K neon-gaming-room rEFInd theme, combining **Pneaple-inspired translucent bla
 ## Included assets
 
 - `background.png`: **3840×2160 RGB PNG**, resampled from the approved 1672×941 illustration, including the header and *empty* translucent menu/tool bands.
-- `selection_big.png` / `selection_small.png`: **288×288 / 128×128 RGBA PNG** for 256px OS and 96px utility icons.
-- `icons/os_bazzite.png`: Bazzite logo for a manual boot entry. Other OS icons: `os_win.png`, `os_windows.png`, `os_win11.png`.
-- `icons/func_firmware.png`, `icons/func_reset.png`, `icons/func_shutdown.png`: automatically named rEFInd utility icon replacements.
-- `icons/os_shell.png`, `icons/os_rescue.png`: optional/manual-entry icons only. A Shell or Rescue entry **requires a real executable**; adding an icon alone does not create a menu entry.
+- `selection_big.png` / `selection_small.png`: **288×288 / 160×160 RGBA PNG** imported from refindTTT for 256px OS / 120px tool icons.
+- `icons/os_bazzite.png`, `os_win.png`, `os_windows.png`, and `os_win11.png`: original MIT-licensed refindTTT icon PNGs (with the Windows aliases pointing to the same artwork).
+- `icons/func_firmware.png`, `icons/func_reset.png`, `icons/func_shutdown.png`, `icons/tool_shell.png`, and `icons/tool_rescue.png`: original refindTTT 120px utility icons.
+- `icons/os_shell.png` and `icons/os_rescue.png` are retained custom 256px optional/manual-entry icons, since upstream provides Shell and Rescue only as smaller tools. A Shell or Rescue entry **requires a real executable**; adding an icon alone does not create a menu entry.
 - `source/`: original generated high-resolution assets for later edits. (Not included in compact install ZIP.)
+
+## refindTTT icon update — experimental
+
+This revision uses the **actual refindTTT icon and selection files**, not AI-generated lookalikes. It imports Bazzite, Windows, firmware, reset, shutdown, Shell-tool and Rescue-tool artwork; its blue selection backgrounds are specifically matched to the transparent-label icons.
+
+Stock rEFInd's selected-entry label is hidden by the theme to prevent double labels. The imported main-menu labels are transparent and become visible with the matching selection background.
+
+**Contrast caveat:** upstream refindTTT warns that its special transparency behaves best against a completely black center background. We have **not altered the approved translucent gaming-room wallpaper**; some lettering may be hard to read until tested on actual 4K UEFI firmware. If necessary, darken just the middle band after capturing an actual boot screenshot.
+
+The theme only changes UI visuals; it does not touch the Fedora Shim loader, Secure Boot keys, boot entry scanning, or NVRAM. The existing custom Shell and Rescue 256px main-row icons are retained because refindTTT only provides them in the 120px tools set.
+
+Source: https://github.com/gutlessCGH/refindTTT
+Revision: 427f62a44a701bc75e2fbe973424a2a601238c37
+License: Copyright (c) 2026 gutlessCGH, MIT — full text in third_party/refindTTT-LICENSE.
 
 ## Install — never replace your bootloader
 
@@ -84,10 +98,10 @@ Replace the new `include` with your previous theme include, or restore your save
 
 ## Rebuilding and GitHub publication
 
-Run `python scripts/build_assets.py` after editing source assets; requires Pillow. The source ZIP includes these high-resolution sources and a `PUBLISHING.md` with steps to create a GitHub repository and push it. The compact installation ZIP omits `source/` to save space.
+Run `python scripts/build_assets.py` to rebuild the 4K wallpaper and the two retained custom main-row icons (requires Pillow). This script deliberately **preserves the imported icons and selection PNGs**. To reproduce the pinned upstream refindTTT import, run `python scripts/sync_refindttt_icons.py` with network access; it verifies upstream Git blob hashes.
 
 ## Credits and licensing
 
-Design inspired by [Pneaple Boot Theme by pineapplelite](https://github.com/pineapplelite/Pneaple-Boot-Theme) (MIT-licensed) and icon-shadow treatment inspired by [BsxM1 by AlexFullmoon](https://github.com/AlexFullmoon/refind-bsxm1-theme). No upstream theme PNGs or configuration files were copied. Artwork in this package was independently generated and adapted for this project from the user's approved concepts. Bazzite, Windows and other names/logos remain the property of their respective holders; not an official Bazzite/Universal Blue release. See `LICENSE` and `ATTRIBUTION.md`.
+Design inspired by [Pneaple Boot Theme by pineapplelite](https://github.com/pineapplelite/Pneaple-Boot-Theme) (MIT-licensed) and icon-shadow treatment inspired by [BsxM1 by AlexFullmoon](https://github.com/AlexFullmoon/refind-bsxm1-theme). This version **includes original refindTTT PNGs** by gutlessCGH under MIT; see `third_party/refindTTT-LICENSE` and `ATTRIBUTION.md`. The gaming-room artwork and the retained Shell/Rescue main-row icons were independently generated from the approved concepts. Bazzite, Windows and other names/logos remain the property of their respective holders; not an official Bazzite/Universal Blue release. See `LICENSE` and `ATTRIBUTION.md`.
 
 Official documentation: [rEFInd Theming](https://www.rodsbooks.com/refind/themes.html) and [rEFInd Configuration](https://www.rodsbooks.com/refind/configfile.html).
